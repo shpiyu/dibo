@@ -13,19 +13,17 @@ var define = function define(word,callback){
 	}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
-	        //console.log(body) // Print the json response
-	        	//let meaning = body.results[0].senses[0].definition.toString();
-	        	//console.log(body.results);
-	        	/*while(meaning === undefined) {
-			      //require('deasync').runLoopOnce();
-			      console.log('in loop');
-			    }*/
-	        	callback(body.results[0].senses[0].definition.toString());
+	        	
+	        	var resp = "("+ body.results[0].part_of_speech.toString() + ") "+ body.results[0].senses[0].definition.toString() ;
+	        	//console.log(resp);
+	        	callback(resp);
 	        
 	    }
 
 	})
 
 }
+
+//define('flower');
 
 module.exports={define:define}
