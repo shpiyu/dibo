@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
         	// }
         	// sendTextMessage(sender, text.substring(0,200))
 
-            let meaning = define.define("flower");
+            let meaning = define.define(text);
 
             sendTextMessage(sender,meaning);
         }
