@@ -3,9 +3,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+const define = require('./define')
 const app = express()
 const fb = require('./firebaseUtils')
 const Firebase = require('firebase');
+const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg1ROoRXOnRZBBUhCjCl5BZAEgIABVFNNWhdTGPU1ZAAZAvPtEhAZBaFGr4xk12mIjHJ6LT0GIxxu9SOAcm9y3YTnnCunJihwRmHH6BIvUPvesgZDZD"
 var IDs = [];
 
 Firebase.initializeApp({
@@ -45,16 +47,20 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-    res.send('Hello world, I am a chat bot');
-    console.log(req.body);
-    IDs.push(fb.FireBase.insertRandom(ref));
-    eventEmitter.emit('MessageRecieved');
+
+                define.define('stone',function(meaning){
+                    fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
+                    IDs.push('prasann');
+                    //sendTextMessage(sender,meaning);
+                   eventEmitter.emit('MessageRecieved');
+            });
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
+        
     }
     res.send('Error, wrong token')
 })
@@ -72,11 +78,14 @@ app.post('/webhook/', function (req, res) {
         //check messgage
         if (event.message && event.message.text) {
         	let text = event.message.text
-        	if(text === 'Generic'){
-        		sendGenericMessage(sender)
-        		continue
-        	}
-        	sendTextMessage(sender, text.substring(0,200))
+                     
+            define.define(text,function(meaning){
+                    fb.FireBase.insertWordInFireBase();
+                    IDs.push(sender);
+                    sendTextMessage(sender,meaning);
+                   // eventEmitter.emit('MessageRecieved');
+            });
+                        
         }
         if(event.postback) {
         	let text = JSON.stringify(event.postback)
@@ -88,8 +97,6 @@ app.post('/webhook/', function (req, res) {
 })
 
 
-
-const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg1ROoRXOnRZBBUhCjCl5BZAEgIABVFNNWhdTGPU1ZAAZAvPtEhAZBaFGr4xk12mIjHJ6LT0GIxxu9SOAcm9y3YTnnCunJihwRmHH6BIvUPvesgZDZD"
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
@@ -109,7 +116,6 @@ function sendTextMessage(sender, text) {
         }
     })
 }
-
 
 
 function sendGenericMessage(sender) {
