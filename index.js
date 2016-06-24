@@ -78,12 +78,14 @@ app.post('/webhook/', function (req, res) {
         //check messgage
         if (event.message && event.message.text) {
         	let text = event.message.text
-                     
+            console.log('Making a request'); 
             define.define(text,function(meaning){
                     fb.FireBase.insertWordInFireBase();
+                    console.log(meaning);
+                    console.log(sender);
                     IDs.push(sender);
                     sendTextMessage(sender,meaning);
-                   // eventEmitter.emit('MessageRecieved');
+            
             });
                         
         }
