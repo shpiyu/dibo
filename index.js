@@ -95,14 +95,15 @@ app.post('/webhook/', function (req, res) {
                 new define.define(text,function(meaning){
                     if(meaning !== undefined)
                     {
-                        
+                        console.log('Saving to firebase..');
+                        console.log(meaning);  
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.push(sender);
                         sendTextMessage(sender,meaning);
                     }
                     else
                         sendTextMessage(sender, 'No meaning found');
-                    console.log(meaning);
+                    //console.log(meaning);
                     console.log(sender);
                 });
             }

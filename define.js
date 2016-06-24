@@ -15,6 +15,7 @@ var define = function define(word,callback){
 	    if (!error && response.statusCode === 200) {
 	    	var resp = "";
 	    		if(body.results !== undefined || body.results.length == 0 ){
+	    			console.log('Before For loop'); 
 	    			for(var i=0; i < body.results.length;i++){
 	    				if(body.results[i].senses!== undefined && body.results[i].senses[0].definition !== undefined)
 	    				var headword = 	body.results[i].headword;
@@ -22,11 +23,12 @@ var define = function define(word,callback){
 			        	var partOfSpeech = body.results[i].part_of_speech.toString();
 			        	resp += (i+1) + headword + " ("+ partOfSpeech + ") "+ definition + "\n";
 	    			}
+	    		console.log('after for loop. Response: '); 	
 	        	console.log(resp);
 	        	callback(resp);
 	        }	        
         	else{
-
+        			
         		callback(undefined);
         	}
 
