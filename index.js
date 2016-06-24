@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
-    
+   
 })
 
 // for Facebook verification
@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
         	// }
         	// sendTextMessage(sender, text.substring(0,200))
 
-            let meaning = define.define(text);
+            let meaning = define.define(text) || text;
 
             sendTextMessage(sender,meaning);
         }
