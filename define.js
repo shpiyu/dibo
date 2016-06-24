@@ -27,7 +27,7 @@ var define = function define(word,callback){
 	        }	        
         	else{
 
-        		callback("No meaning found");
+        		callback(undefined);
         	}
 	    }
 	})

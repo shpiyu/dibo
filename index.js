@@ -90,18 +90,21 @@ app.post('/webhook/', function (req, res) {
             if(text == "ask"){
                 quizMode(sender);
             }
-            console.log('Making a request'); 
-            new define.define(text,function(meaning){
-                if(meaning !== "No meaning found")
-                {
-                    fb.FireBase.insertWordInFireBase(ref,sender,text);
-                    IDs.push(sender);
-                }
-                console.log(meaning);
-                console.log(sender);
-                sendTextMessage(sender,meaning);
-            
-            });
+            else{
+                console.log('Making a request'); 
+                new define.define(text,function(meaning){
+                    if(meaning !== undefined)
+                    {
+                        fb.FireBase.insertWordInFireBase(ref,sender,text);
+                        IDs.push(sender);
+                        sendTextMessage(sender,meaning);
+                    }
+                    else
+                        sendTextMessage(sender, 'No meaning found');
+                    console.log(meaning);
+                    console.log(sender);
+                });
+            }
                         
         }
         if(event.postback) {
