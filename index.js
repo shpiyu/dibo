@@ -93,7 +93,7 @@ app.post('/webhook/', function (req, res) {
             else{
                 console.log('Making a request'); 
                 new define.define(text,function(meaning){
-                    if(meaning !== undefined)
+                    if(meaning !== undefined || meaning == "")
                     {
                         console.log('Saving to firebase..');
                         console.log(meaning);  

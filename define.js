@@ -14,7 +14,7 @@ var define = function define(word,callback){
 
 	    if (!error && response.statusCode === 200) {
 	    	var resp = "";
-	    		if(body.results !== undefined || body.results.length == 0 ){
+	    		if(body.results.length != 0 ){
 	    			console.log('Before For loop'); 
 	    			for(var i=0; i < body.results.length;i++){
 	    				if(body.results[i].senses!== undefined && body.results[i].senses[0].definition !== undefined)
