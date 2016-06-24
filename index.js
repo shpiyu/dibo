@@ -50,9 +50,21 @@ app.post('/webhook/', function (req, res) {
 
             // let meaning = define.define(text) || text;
             let meaning;
+            var url = "http://api.pearson.com/v2/dictionaries/entries?headword="+text;
+
             async.series([
                 function(callback){
-                    meaning = define.define(text);
+                    request({
+                        url: url,
+                        json: true
+                    }, function (error, response, body) {
+
+                        if (!error && response.statusCode === 200) {
+                            //console.log(body) // Print the json response
+                                let meaning = body.results[0].senses[0].definition.toString();                            
+                        }
+
+                    })
                 },
                 function(callback){
                     sendTextMessage(sender,meaning);
