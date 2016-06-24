@@ -48,9 +48,18 @@ app.post('/webhook/', function (req, res) {
         	// }
         	// sendTextMessage(sender, text.substring(0,200))
 
-            //let meaning = define.define(text) || text;
+            // let meaning = define.define(text) || text;
+            let meaning;
+            async.series([
+                function(callback){
+                    meaning = define.define(text);
+                },
+                function(callback){
+                    sendTextMessage(sender,meaning);
+                }
+            ]);
 
-            /*********** define **************/
+            /*********** define **************
                 var url = "http://api.pearson.com/v2/dictionaries/entries?headword="+text;
 
 
@@ -61,7 +70,7 @@ app.post('/webhook/', function (req, res) {
 
                     if (!error && response.statusCode === 200) {
                         //console.log(body) // Print the json response
-                            let meaning = body.results[0].senses[0].definition.toString();                        
+                            let meaning = body.results[0].senses[0].definition.toString() || text;                        
                     }
 
                 })
@@ -69,7 +78,7 @@ app.post('/webhook/', function (req, res) {
 
             /********************************/
 
-            sendTextMessage(sender,meaning);
+           // sendTextMessage(sender,meaning);
         }
         if(event.postback) {
         	let text = JSON.stringify(event.postback)
