@@ -22,13 +22,15 @@ var define = function define(word,callback){
 			        	var partOfSpeech = body.results[i].part_of_speech.toString();
 			        	resp += (i+1) + headword + " ("+ partOfSpeech + ") "+ definition + "\n";
 	    			}
-	        	
+	        	console.log(resp);
 	        	callback(resp);
 	        }	        
         	else{
 
         		callback(undefined);
         	}
+
+        	console.log(body.results);
 	    }
 	})
 }

@@ -95,6 +95,7 @@ app.post('/webhook/', function (req, res) {
                 new define.define(text,function(meaning){
                     if(meaning !== undefined)
                     {
+                        
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.push(sender);
                         sendTextMessage(sender,meaning);
