@@ -13,18 +13,18 @@ var define = function define(word,callback){
 	}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
+	    		if(body.results!== undefined && body.results[0].senses!== undefined && body.results[0].senses[0].definition !== undefined){
 	        	var definition = body.results[0].senses[0].definition.toString();
 	        	var partOfSpeech = body.results[0].part_of_speech.toString();
-
 	        	var resp = "("+ partOfSpeech + ") "+ definition ;
-	        	if(definition){
-	        		callback(resp);
-	        	}
-	        	else{
-	        		callback("No meaning found");
-	        	}
 	        	//console.log(resp);
-	        	//callback(resp);
+	        	callback(resp);
+	        }
+        	else{
+        		callback("No meaning found");
+        		//console.log("No meaning found");
+        	}
+        	//callback(resp);
 	        
 	    }
 
@@ -32,6 +32,6 @@ var define = function define(word,callback){
 
 }
 
-//define('walking');
+//define('anna');
 
 module.exports={define:define}
