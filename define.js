@@ -13,10 +13,18 @@ var define = function define(word,callback){
 	}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
-	        	
-	        	var resp = "("+ body.results[0].part_of_speech.toString() + ") "+ body.results[0].senses[0].definition.toString() ;
+	        	var definition = body.results[0].senses[0].definition.toString();
+	        	var partOfSpeech = body.results[0].part_of_speech.toString();
+
+	        	var resp = "("+ partOfSpeech + ") "+ definition ;
+	        	if(definition){
+	        		callback(resp);
+	        	}
+	        	else{
+	        		callback("No meaning found");
+	        	}
 	        	//console.log(resp);
-	        	callback(resp);
+	        	//callback(resp);
 	        
 	    }
 
@@ -24,6 +32,6 @@ var define = function define(word,callback){
 
 }
 
-//define('flower');
+//define('walking');
 
 module.exports={define:define}
