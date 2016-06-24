@@ -80,7 +80,7 @@ app.post('/webhook/', function (req, res) {
         	let text = event.message.text
             console.log('Making a request'); 
             define.define(text,function(meaning){
-                    fb.FireBase.insertWordInFireBase();
+                    fb.FireBase.insertWordInFireBase(ref,sender,text);
                     console.log(meaning);
                     console.log(sender);
                     IDs.push(sender);
