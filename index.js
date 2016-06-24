@@ -17,14 +17,20 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
-   
+    var sender = "ssss";
+    define.define('stone',function(meaning){
+
+        console.log(sender + " "+ meaning);
+
+    });
+    
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
-
+        
     }
     res.send('Error, wrong token')
 })
@@ -48,9 +54,11 @@ app.post('/webhook/', function (req, res) {
         	// }
         	// sendTextMessage(sender, text.substring(0,200))
 
-             let meaning = define.define(text);
-            
-
+             
+                        
+            define.define(text,function(meaning){
+                    sendTextMessage(sender,meaning);
+            });
             /*********** define **************
                 var url = "http://api.pearson.com/v2/dictionaries/entries?headword="+text;
 
@@ -70,7 +78,7 @@ app.post('/webhook/', function (req, res) {
 
             /********************************/
 
-            sendTextMessage(sender,meaning);
+            
         }
         if(event.postback) {
         	let text = JSON.stringify(event.postback)

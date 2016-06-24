@@ -14,12 +14,13 @@ var define = function define(word,callback){
 
 	    if (!error && response.statusCode === 200) {
 	        //console.log(body) // Print the json response
-	        	let meaning = body.results[0].senses[0].definition.toString();
-	        	//console.log('in define:'+meaning );
-	        	while(meaning === undefined) {
-			      require('deasync').runLoopOnce();
-			    }
-	        	return meaning;
+	        	//let meaning = body.results[0].senses[0].definition.toString();
+	        	//console.log(body.results);
+	        	/*while(meaning === undefined) {
+			      //require('deasync').runLoopOnce();
+			      console.log('in loop');
+			    }*/
+	        	callback(body.results[0].senses[0].definition.toString());
 	        
 	    }
 
