@@ -20,11 +20,12 @@ Firebase.initializeApp({
 
 });
 
-const ref = Firebase.database().ref();
+const database = Firebase.database();
+const ref = database.ref();
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 
-eventEmitter.on('MessageRecieved', function(){
+eventEmitter.on('InsertedIDAndWord', function(){
 
     userInserted();
 
@@ -45,15 +46,23 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Process application/json
 app.use(bodyParser.json())
 
+Array.prototype.insertUnique = function (value) {
+    if(this.indexOf(value) <= -1)
+        this.push(value);
+}
+
 // Index route
 app.get('/', function (req, res) {
 
-                define.define('stone',function(meaning){
+            console.log(req.query);
+            if(req.query['text'] === 'ask')
+                quizMode('948868911892281');
+                /*define.define('laugh',function(meaning){
                     fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
-                    IDs.push('prasann');
-                    //sendTextMessage(sender,meaning);
-                   eventEmitter.emit('MessageRecieved');
-            });
+                    console.log(meaning);
+                    IDs.insertUnique('prasann');    
+                   eventEmitter.emit('InsertedIDAndWord');
+            });*/
 })
 
 // for Facebook verification
@@ -78,13 +87,19 @@ app.post('/webhook/', function (req, res) {
         //check messgage
         if (event.message && event.message.text) {
         	let text = event.message.text
+            if(text == "ask"){
+                quizMode(sender);
+            }
             console.log('Making a request'); 
-            define.define(text,function(meaning){
+            new define.define(text,function(meaning){
+                if(meaning !== "No meaning found")
+                {
                     fb.FireBase.insertWordInFireBase(ref,sender,text);
-                    console.log(meaning);
-                    console.log(sender);
                     IDs.push(sender);
-                    sendTextMessage(sender,meaning);
+                }
+                console.log(meaning);
+                console.log(sender);
+                sendTextMessage(sender,meaning);
             
             });
                         
@@ -98,6 +113,12 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
+
+function quizMode(id){
+
+    fb.FireBase.getWords(database,id);
+
+}
 
 
 function sendTextMessage(sender, text) {

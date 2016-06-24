@@ -4,7 +4,7 @@ var request = require("request")
 let word;
 var define = function define(word,callback){
 
-	var url = "http://api.pearson.com/v2/dictionaries/entries?headword="+word;
+	var url = "http://api.pearson.com/v2/dictionaries/lasde/entries?headword="+word;
 
 
 	request({
@@ -13,25 +13,24 @@ var define = function define(word,callback){
 	}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
-	    		if(body.results!== undefined && body.results[0].senses!== undefined && body.results[0].senses[0].definition !== undefined){
-	        	var definition = body.results[0].senses[0].definition.toString();
-	        	var partOfSpeech = body.results[0].part_of_speech.toString();
-	        	var resp = "("+ partOfSpeech + ") "+ definition ;
-	        	//console.log(resp);
+	    	var resp = "";
+	    		if(body.results !== undefined || body.results.length == 0 ){
+	    			for(var i=0; i < body.results.length;i++){
+	    				if(body.results[i].senses!== undefined && body.results[i].senses[0].definition !== undefined)
+	    				var headword = 	body.results[i].headword;
+			    		var definition = body.results[i].senses[0].definition.toString();
+			        	var partOfSpeech = body.results[i].part_of_speech.toString();
+			        	resp += (i+1) + headword + " ("+ partOfSpeech + ") "+ definition + "\n";
+	    			}
+	        	
 	        	callback(resp);
-	        }
+	        }	        
         	else{
+
         		callback("No meaning found");
-        		//console.log("No meaning found");
         	}
-        	//callback(resp);
-	        
 	    }
-
 	})
-
 }
-
-//define('anna');
 
 module.exports={define:define}
