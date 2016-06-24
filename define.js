@@ -16,6 +16,9 @@ var define = function define(word,callback){
 	        //console.log(body) // Print the json response
 	        	let meaning = body.results[0].senses[0].definition.toString();
 	        	//console.log('in define:'+meaning );
+	        	while(meaning === undefined) {
+			      require('deasync').runLoopOnce();
+			    }
 	        	return meaning;
 	        
 	    }
