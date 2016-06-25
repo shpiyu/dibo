@@ -46,6 +46,8 @@ function sendQuestionToID(id,database){
 	i=0;
 	while(true){
     	setTimeout(function(){
+    		if(database === undefined)
+    			database = Firebase.database();
     		var lword = fb.FireBase.getWords(database,id,function(){
     			new define.define(lword,function(meaning){
 	    			new sendGenericMessage(sender,lword, meaning);	
