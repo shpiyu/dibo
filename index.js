@@ -43,7 +43,7 @@ function userInserted(meaning){
 }
 
 function sendQuestionToID(id,database,meaning){
-	i=0;
+	var i=0;
 	while(i<=300000){
     	setTimeout(function(meaning){
             new sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID.id.length)], meaning);	
