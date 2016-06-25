@@ -111,7 +111,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
-                        sendGenericMessage(sender,text);
+                        sendGenericMessage(sender,text, meaning);
                         eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
@@ -159,8 +159,10 @@ function sendTextMessage(sender, text) {
 }
 
 
-function sendGenericMessage(sender,text) {
+function sendGenericMessage(sender,text, meaning) {
 	var option1,option2;
+	var question = meaning.substring(meaning.indexOf(':')+1);
+
 	define.options(text, function(words){
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
@@ -175,7 +177,7 @@ function sendGenericMessage(sender,text) {
                 "template_type": "generic",
                 "elements": [{
                     "title": questions[Math.floor(Math.random()*questions.length)],
-                    "subtitle": "Element #1 of an hscroll",
+                    "subtitle": question.substring(0,80),
                     "image_url": "",
                     "buttons": [{
                         "type": "postback",
