@@ -39,7 +39,7 @@ eventEmitter.on('InsertedIDAndWord', function(meaning){
 function userInserted(meaning){
     console.log('user inserted event');
     console.log('before pop: '+IDs);
-    sendQuestionToID(IDs.pop(),database,meaning);
+    sendQuestionToID(IDs[IDs.length-1],database,meaning);
     console.log('after pop:' +IDs);
 }
 
