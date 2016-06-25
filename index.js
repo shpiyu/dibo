@@ -160,10 +160,10 @@ function sendTextMessage(sender, text) {
 
 
 function sendGenericMessage(sender,text) {
-
+	var option1,option2;
 	define.options(text, function(){
-		var option1 = words[0] || "option 1";
-		var option2 = words[1] || "option 2";
+		option1 = words[0] || "option 1";
+		option2 = words[1] || "option 2";
 	});
 
     let messageData = {
