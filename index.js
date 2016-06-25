@@ -7,18 +7,9 @@ const define = require('./define')
 const app = express()
 const fb = require('./firebaseUtils')
 const Firebase = require('firebase');
-
-var Canvas = require('canvas')
-  , Image = Canvas.Image
-  , canvas = new Canvas(200, 200)
-  , ctx = canvas.getContext('2d');
-
-ctx.font = '30px Impact';
-ctx.rotate(.1);
-
-
 const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg1ROoRXOnRZBBUhCjCl5BZAEgIABVFNNWhdTGPU1ZAAZAvPtEhAZBaFGr4xk12mIjHJ6LT0GIxxu9SOAcm9y3YTnnCunJihwRmHH6BIvUPvesgZDZD"
 //questions
+
 const questions = ['Best Match for','']
 var IDs = [];
 
@@ -118,7 +109,7 @@ app.post('/webhook/', function (req, res) {
                         console.log('Saving to firebase..');
                         console.log(meaning);  
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
-                        IDs.push(sender);
+                        IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
                         sendGenericMessage(sender,meaning);
                         eventEmitter.emit('InsertedIDAndWord');
@@ -170,16 +161,6 @@ function sendTextMessage(sender, text) {
 
 function sendGenericMessage(sender,text) {
 
-		ctx.fillText(text, 50, 100);
-
-		var te = ctx.measureText(text);
-		ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-		ctx.beginPath();
-		ctx.lineTo(50, 102);
-		ctx.lineTo(50 + te.width, 102);
-		ctx.stroke();
-		var url  = canvas.toDataURL();
-		console.log(url);
     let messageData = {
         "attachment": {
             "type": "template",
@@ -188,7 +169,7 @@ function sendGenericMessage(sender,text) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": url,
+                    "image_url": "",
                     "buttons": [{
                         "type": "postback",
                         "title": "option 1",
