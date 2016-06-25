@@ -38,14 +38,15 @@ eventEmitter.on('InsertedIDAndWord', function(meaning){
 
 function userInserted(meaning){
     console.log('user inserted event');
-    console.log(IDs);
+    console.log('before pop: '+IDs);
     sendQuestionToID(IDs.pop(),database,meaning);
-    console.log(IDs);
+    console.log('after pop:' +IDs);
 }
 
 function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
+		console.log('before send ques: '+id);
     	setTimeout(function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
