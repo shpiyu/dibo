@@ -165,7 +165,7 @@ function sendGenericMessage(sender,text) {
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
 		console.log('Words: '+words);
-	});
+	
 
 	console.log(option1 + " $$ "+ option2);
     let messageData = {
@@ -211,5 +211,6 @@ function sendGenericMessage(sender,text) {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
-    })
+    });
+  });
 }
