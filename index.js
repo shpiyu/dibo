@@ -34,7 +34,7 @@ eventEmitter.on('InsertedIDAndWord', function(){
 function userInserted(){
     console.log('user inserted event');
     console.log(IDs);
-    sendMessageToID(IDs.pop());
+   // sendMessageToID(IDs.pop());
 }
 
 function sendMessageToID(id){
@@ -108,6 +108,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.push(sender);
                         sendTextMessage(sender,meaning);
+                        sendGenericMessage(sender);
                         eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
