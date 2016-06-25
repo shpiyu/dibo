@@ -46,7 +46,9 @@ function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
     	setTimeout(function(meaning){
-            sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID.id.length)], meaning);	
+    		console.log('------------------------------------')
+    		console.log(WordsPerID);
+            sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID[id].length)], meaning);	
     	},10000,meaning);	
 	//}
 	//i += 60000;
