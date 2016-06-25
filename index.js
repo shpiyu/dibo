@@ -40,6 +40,7 @@ function userInserted(meaning){
     console.log('user inserted event');
     console.log(IDs);
     sendQuestionToID(IDs.pop(),database,meaning);
+    console.log(IDs);
 }
 
 function sendQuestionToID(id,database,meaning){
@@ -48,6 +49,7 @@ function sendQuestionToID(id,database,meaning){
     	setTimeout(function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
+    		console.log(id);
     		var arrayT = WordsPerID[id];
             sendGenericMessage(id,arrayT[Math.floor((Math.random() * WordsPerID[id].length))], meaning);	
     	},10000);	
@@ -124,6 +126,7 @@ app.post('/webhook/', function (req, res) {
                             eventEmitter.emit('InsertedIDAndWord',meaning);
                         });
                         IDs.insertUnique(sender);
+                        console.log(IDs);
                         sendTextMessage(sender,meaning);
                         //sendGenericMessage(sender,fb.FireBase.getWords(), meaning);
                        

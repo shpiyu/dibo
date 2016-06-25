@@ -19,10 +19,10 @@ var define = {
 			}, function (error, response, body) {
 
 			    if (!error && response.statusCode === 200) {
-			    	console.log('response is 200');
+			    	//console.log('response is 200');
 			    	var resp = "";
 			    		if(body.results.length != 0 ){
-			    			console.log('Before For loop'); 
+			    		//	console.log('Before For loop'); 
 			    			for(var i=0; i < body.results.length;i++){
 			    				if(body.results[i].senses!== undefined && body.results[i].senses[0].definition !== undefined)
 			    				var headword = 	body.results[i].headword;
@@ -30,8 +30,8 @@ var define = {
 					        	var partOfSpeech = body.results[i].part_of_speech.toString();
 					        	resp += headword + " ("+ partOfSpeech + ") : "+ definition + "\n\n";
 			    			}
-			    		console.log('after for loop. Response: '); 	
-			        	console.log(resp);
+			    		//console.log('after for loop. Response: '); 	
+			        	//console.log(resp);
 			        	callback(resp);
 			        }	        
 		        	else{
@@ -39,7 +39,7 @@ var define = {
 		        		callback(undefined);
 		        	}
 
-		        	console.log(body.results);
+		        	//console.log(body.results);
 			    }
 			});
 		}
