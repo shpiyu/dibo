@@ -50,11 +50,11 @@ function sendQuestionToID(id,database,meaning){
     	setTimeout(function(){
     		var arrayT = WordsPerID[id];
     		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
-    		new define.define(text,function(){
+    		define.define(text,function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		console.log(id);
-            sendGenericMessage(id,text, meaning);	
+            new sendGenericMessage(id,text, meaning);	
     		});
     	},10000);	
 	//}
