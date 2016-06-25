@@ -39,15 +39,20 @@ eventEmitter.on('InsertedIDAndWord', function(){
 function userInserted(){
     console.log('user inserted event');
     console.log(IDs);
-   // sendMessageToID(IDs.pop());
+    sendQuestionToID(IDs.pop());
 }
 
-function sendMessageToID(id){
-
-    setTimeout(function(){
-        //sendTextMessage(id,"Testing Bitch");
-        sendGenericMessage(id);
-    },10000);
+function sendQuestionToID(id){
+	i=0;
+	while(true){
+    	setTimeout(function(){
+    		var lword = fb.FireBase.getWords();
+    		new define.define(lword,function(meaning){
+    		new sendGenericMessage(sender,lword, meaning);	
+    		});
+    	},60000+ i);
+	}
+	i += 60000;
 }
 
 
@@ -113,7 +118,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
-                        sendGenericMessage(sender,text, meaning);
+                        sendGenericMessage(sender,fb.FireBase.getWords(), meaning);
                         eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
@@ -175,7 +180,7 @@ function sendGenericMessage(sender,text, meaning) {
 	var option1,option2;
 	var question = meaning.substring(meaning.indexOf(':')+1);
 
-	define.options(text, function(words){
+	new define.options(text, function(words){
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
 		console.log('Words: '+words);
@@ -211,7 +216,7 @@ function sendGenericMessage(sender,text, meaning) {
 
      console.log(messageData);
     
-    request({
+    new request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
         method: 'POST',
