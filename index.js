@@ -46,8 +46,8 @@ function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
     	setTimeout(function(meaning){
-            new sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID.id.length)], meaning);	
-    	},60000,meaning);	
+            sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID.id.length)], meaning);	
+    	},10000,meaning);	
 	//}
 	//i += 60000;
 }
@@ -117,11 +117,13 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         fb.FireBase.getWords(ref,sender,text,function(array){
                             WordsPerID[sender] = array;
+                            console.log(WordsPerID);
+                            eventEmitter.emit('InsertedIDAndWord');
                         });
                         IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
                         //sendGenericMessage(sender,fb.FireBase.getWords(), meaning);
-                        eventEmitter.emit('InsertedIDAndWord');
+                       
                     }
                     else
                         sendTextMessage(sender, 'No meaning found');
