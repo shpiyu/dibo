@@ -41,16 +41,21 @@ exports.FireBase = {
 			return id;
 		},
 
-		getWords : function(database,id){
+		getWords : function(database,id,callback){
 			
 			var ref2 = database.ref().child('IDs').child(id).child('words');
 			console.log(ref2);
 			ref2.on('value', function(snapshot) {
 				var ss = snapshot.val();
+				var array = [];
 				//console.log('In Value: '+snapshot.val());
 				for(var key in ss){
-					console.log(ss[key]);
+					array.push(ss[key]);
 				}
+				int randomIndex = Math.random() * array.length();
+				if(randomIndex >= array.length())
+					randomIndex --;
+				callback(array[randomIndex]);				
 			});
 
 		}
