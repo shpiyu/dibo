@@ -60,11 +60,12 @@ function sendQuestionToID(id,database,meaning){
     		console.log(id);
             sendGenericMessage(id,text, meaning);	
     		});
-    	},60000);
-    	}	
+    	}
+    },60000);
+ }	
 	//}
 	//i += 60000;
-}
+
 
 
     	
