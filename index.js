@@ -179,7 +179,7 @@ function sendGenericMessage(sender,text) {
 		ctx.lineTo(50 + te.width, 102);
 		ctx.stroke();
 		var url  = canvas.toDataURL();
-
+		console.log(url);
     let messageData = {
         "attachment": {
             "type": "template",
