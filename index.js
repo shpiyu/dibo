@@ -54,7 +54,7 @@ function sendQuestionToID(id,database,meaning){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		console.log(id);
-            new sendGenericMessage(id,text, meaning);	
+            sendGenericMessage(id,text, meaning);	
     		});
     	},10000);	
 	//}

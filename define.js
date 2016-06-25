@@ -66,6 +66,7 @@ var define = {
 					words.push(t[key2][1]);
 				}
 				callback(words);
+				words = [];
 				//console.log(words);
 			}
 
