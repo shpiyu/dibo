@@ -162,8 +162,8 @@ function sendTextMessage(sender, text) {
 function sendGenericMessage(sender,text) {
 
 	define.options(text, function(){
-		var option1 = words[0];
-		var option2 = words[1];
+		var option1 = words[0] || "option 1";
+		var option2 = words[1] || "option 2";
 	});
 
     let messageData = {
@@ -181,11 +181,11 @@ function sendGenericMessage(sender,text) {
                         "payload": "option 1"
                     }, {
                         "type": "postback",
-                        "title": option1 || "option 1",
+                        "title": option1,
                         "payload": "option 2"
                     },{
                         "type": "postback",
-                        "title": option2 || "option 2",
+                        "title": option2,
                         "payload": "option 3"
                     }],
                 }],
