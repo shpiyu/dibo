@@ -8,6 +8,9 @@ const app = express()
 const fb = require('./firebaseUtils')
 const Firebase = require('firebase');
 const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg1ROoRXOnRZBBUhCjCl5BZAEgIABVFNNWhdTGPU1ZAAZAvPtEhAZBaFGr4xk12mIjHJ6LT0GIxxu9SOAcm9y3YTnnCunJihwRmHH6BIvUPvesgZDZD"
+//questions
+
+const questions = ['Best Match for','']
 var IDs = [];
 
 Firebase.initializeApp({
@@ -34,13 +37,14 @@ eventEmitter.on('InsertedIDAndWord', function(){
 function userInserted(){
     console.log('user inserted event');
     console.log(IDs);
-    sendMessageToID(IDs.pop());
+   // sendMessageToID(IDs.pop());
 }
 
 function sendMessageToID(id){
 
     setTimeout(function(){
-        sendTextMessage(id,"Testing Bitch");
+        //sendTextMessage(id,"Testing Bitch");
+        sendGenericMessage(id);
     },10000);
 }
 
@@ -63,13 +67,13 @@ app.get('/', function (req, res) {
 
             console.log(req.query);
             if(req.query['text'] === 'ask')
-                quizMode('948868911892281');
-                /*define.define('laugh',function(meaning){
-                    fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
+                //quizMode('948868911892281');
+                define.define('option 1',function(meaning){
+                    //fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
                     console.log(meaning);
-                    IDs.insertUnique('prasann');    
-                   eventEmitter.emit('InsertedIDAndWord');
-            });*/
+                    //IDs.insertUnique('prasann');    
+                   //eventEmitter.emit('InsertedIDAndWord');
+            });
 })
 
 // for Facebook verification
@@ -105,8 +109,9 @@ app.post('/webhook/', function (req, res) {
                         console.log('Saving to firebase..');
                         console.log(meaning);  
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
-                        IDs.push(sender);
+                        IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
+                        sendGenericMessage(sender,meaning);
                         eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
@@ -154,7 +159,8 @@ function sendTextMessage(sender, text) {
 }
 
 
-function sendGenericMessage(sender) {
+function sendGenericMessage(sender,text) {
+
     let messageData = {
         "attachment": {
             "type": "template",
@@ -163,29 +169,25 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": "",
                     "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
+                        "type": "postback",
+                        "title": "option 1",
+                        "payload": "option 1"
                     }, {
                         "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
+                        "title": "option 2",
+                        "payload": "option 2"
+                    },{
                         "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "title": "option 3",
+                        "payload": "option 3"
                     }],
-                }]
+                }],
+                }
             }
         }
-    }
+    
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},

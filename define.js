@@ -19,6 +19,7 @@ var define = {
 			}, function (error, response, body) {
 
 			    if (!error && response.statusCode === 200) {
+			    	console.log('response is 200');
 			    	var resp = "";
 			    		if(body.results.length != 0 ){
 			    			console.log('Before For loop'); 
@@ -27,7 +28,7 @@ var define = {
 			    				var headword = 	body.results[i].headword;
 					    		var definition = body.results[i].senses[0].definition.toString();
 					        	var partOfSpeech = body.results[i].part_of_speech.toString();
-					        	resp += (i+1) + headword + " ("+ partOfSpeech + ") "+ definition + "\n";
+					        	resp += headword + " ("+ partOfSpeech + ") : "+ definition + "\n\n";
 			    			}
 			    		console.log('after for loop. Response: '); 	
 			        	console.log(resp);
@@ -42,9 +43,38 @@ var define = {
 			    }
 			});
 		}
-	}
+	},
 
-	// new fn
+	options : function(word, callback){
+		var words = []; 
+		var url = "http://words.bighugelabs.com/api/2/bb3bce84dabc99e28f8f748276fba24b/"+word+"/json";
+		request({
+			url:url,
+			json: true
+		}, function(error, response, body) {
+			console.log(error);
+			//console.log(response);
+			if(!error && response.statusCode === 200) {
+				for(var x in body){
+					if(words.length <= 2){
+						for(var y in body[x]){
+							if(words.length !=2)
+								words.push(body[x][y]);
+							else
+								break;
+						}
+					}
+				}
+				//callback(words);
+				console.log(words);
+			}
+
+		});
+	}
 }
 
+
+define.options("delight",function(words){
+	console.log(words);
+});
 module.exports= define;
