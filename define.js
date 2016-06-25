@@ -47,7 +47,7 @@ var define = {
 
 	options : function(word, callback){
 		var words = []; 
-		var url = "http://words.bighugelabs.com/api/2/bb3bce84dabc99e28f8f748276fba24b/"+word+"/json";
+		var url = "http://words.bighugelabs.com/api/2/93b11d02ef6e2af4f4d7a19cc80eaeaa/"+word+"/json";
 		request({
 			url:url,
 			json: true
@@ -55,18 +55,15 @@ var define = {
 			console.log(error);
 			//console.log(response);
 			if(!error && response.statusCode === 200) {
-				for(var x in body){
-					if(words.length <= 2){
-						for(var y in body[x]){
-							if(words.length !=2)
-								words.push(body[x][y]);
-							else
-								break;
-						}
-					}
+				var key = Object.keys(body)[0];
+				for(var key2 in body[key])
+				{
+					var t = body[key];
+					words.push(t[key2][0]);
+					words.push(t[key2][1]);
 				}
-				//callback(words);
-				console.log(words);
+				callback(words);
+				//console.log(words);
 			}
 
 		});
@@ -74,7 +71,7 @@ var define = {
 }
 
 
-define.options("delight",function(words){
+/*define.options("flower",function(words){
 	console.log(words);
-});
+});*/
 module.exports= define;

@@ -111,7 +111,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
-                        sendGenericMessage(sender,meaning);
+                        sendGenericMessage(sender,text);
                         eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
@@ -161,6 +161,11 @@ function sendTextMessage(sender, text) {
 
 function sendGenericMessage(sender,text) {
 
+	define.options(text, function(){
+		var option1 = words[0];
+		var option2 = words[1];
+	});
+
     let messageData = {
         "attachment": {
             "type": "template",
@@ -172,15 +177,15 @@ function sendGenericMessage(sender,text) {
                     "image_url": "",
                     "buttons": [{
                         "type": "postback",
-                        "title": "option 1",
+                        "title": text,
                         "payload": "option 1"
                     }, {
                         "type": "postback",
-                        "title": "option 2",
+                        "title": option1 || "option 1",
                         "payload": "option 2"
                     },{
                         "type": "postback",
-                        "title": "option 3",
+                        "title": option2 || "option 2",
                         "payload": "option 3"
                     }],
                 }],
