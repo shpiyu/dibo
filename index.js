@@ -47,7 +47,7 @@ function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
 		console.log('before send ques: '+id);
-    	setTimeout(function(){
+   // 	setTimeout(function(){
     		var arrayT = WordsPerID[id];
     		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
     		define.define(text,function(){
@@ -56,7 +56,7 @@ function sendQuestionToID(id,database,meaning){
     		console.log(id);
             sendGenericMessage(id,text, meaning);	
     		});
-    	},10000);	
+    //	},10000);	
 	//}
 	//i += 60000;
 }
@@ -194,7 +194,7 @@ function sendGenericMessage(sender,text, meaning) {
 	var option1,option2;
 	var question = meaning.substring(meaning.indexOf(':')+1);
 
-	new define.options(text, function(words){
+	 define.options(text, function(words){
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
 		console.log('Words: '+words);
@@ -230,7 +230,7 @@ function sendGenericMessage(sender,text, meaning) {
 
      console.log(messageData);
     
-    new request({
+     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
         method: 'POST',
