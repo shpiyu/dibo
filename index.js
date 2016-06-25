@@ -10,7 +10,7 @@ const Firebase = require('firebase');
 const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg1ROoRXOnRZBBUhCjCl5BZAEgIABVFNNWhdTGPU1ZAAZAvPtEhAZBaFGr4xk12mIjHJ6LT0GIxxu9SOAcm9y3YTnnCunJihwRmHH6BIvUPvesgZDZD"
 //questions
 
-const questions = ['Best Match for','']
+const questions = ['Best Match for','Pick a suitable word for'];
 var IDs = [];
 
 Firebase.initializeApp({
@@ -167,7 +167,7 @@ function sendGenericMessage(sender,text) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "First card",
+                    "title": questions[Math.floor(Math.random()*questions.length)],
                     "subtitle": "Element #1 of an hscroll",
                     "image_url": "",
                     "buttons": [{
