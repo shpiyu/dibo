@@ -20,9 +20,9 @@ exports.FireBase = {
 			return id;
 		},
 
-		getWords : function(database,id,callback){
+		getWords : function(ref,id,meaning,callback){
 			
-			var ref2 = database.ref().child('IDs').child(id).child('words');
+			var ref2 = ref.child('IDs').child(id).child('words');
 			console.log(ref2);
 			ref2.on('value', function(snapshot) {
 				var ss = snapshot.val();
@@ -31,10 +31,8 @@ exports.FireBase = {
 				for(var key in ss){
 					array.push(ss[key]);
 				}
-				var randomIndex = (Math.random() * array.length());
-				if(randomIndex >= array.length())
-					randomIndex --;
-				callback(array[randomIndex]);				
+				
+				callback(array);				
 			});
 
 		}
