@@ -32,6 +32,8 @@ var define = {
 			    			}
 			    		//console.log('after for loop. Response: '); 	
 			        	//console.log(resp);
+			        	resp = resp.substring(0,320);
+			        	resp = resp.substring(0,resp.lastIndexOf('\n'));
 			        	callback(resp);
 			        }	        
 		        	else{
