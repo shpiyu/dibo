@@ -47,7 +47,8 @@ var define = {
 
 	options : function(word, callback){
 		var words = []; 
-		var url = "http://words.bighugelabs.com/api/2/93b11d02ef6e2af4f4d7a19cc80eaeaa/"+word+"/json";
+		var url = "http://words.bighugelabs.com/api/2/224ad9d3c9f417f0e317e096a7b2a9be/"+word+"/json";
+		// http://words.bighugelabs.com/api/2/224ad9d3c9f417f0e317e096a7b2a9be
 		request({
 			url:url,
 			json: true
