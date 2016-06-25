@@ -47,7 +47,7 @@ function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
 		console.log('before send ques: '+id);
-   // 	setTimeout(function(){
+    	setTimeout(function(){
     		var arrayT = WordsPerID[id];
     		if(arrayT == undefined || arrayT.length == 0){
     			sendTextMessage(id,"Nothing to search :-|");
@@ -60,7 +60,7 @@ function sendQuestionToID(id,database,meaning){
     		console.log(id);
             sendGenericMessage(id,text, meaning);	
     		});
-    //	},10000);
+    	},60000);
     	}	
 	//}
 	//i += 60000;
@@ -118,7 +118,7 @@ app.post('/webhook/', function (req, res) {
         //check messgage
         if (event.message && event.message.text) {
         	let text = event.message.text
-            if(text == "ask"){
+            if(text.toLowerCase() == "ask me".toLowerCase()){
                 sendQuestionToID(sender,database,undefined);
             }
             else{
@@ -132,7 +132,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.getWords(ref,sender,text,function(array){
                             WordsPerID[sender] = array;
                             console.log(WordsPerID);
-                            eventEmitter.emit('InsertedIDAndWord',meaning);
+                            //eventEmitter.emit('InsertedIDAndWord',meaning);
                         });
                         IDs.insertUnique(sender);
                         console.log(IDs);
