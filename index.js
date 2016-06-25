@@ -40,7 +40,8 @@ function userInserted(){
 function sendMessageToID(id){
 
     setTimeout(function(){
-        sendTextMessage(id,"Testing Bitch");
+        //sendTextMessage(id,"Testing Bitch");
+        sendGenericMessage(id);
     },10000);
 }
 
@@ -163,26 +164,22 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": "",
                     "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
+                        "type": "postback",
+                        "title": "option 1",
+                        "payload": "option 1"
                     }, {
                         "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
+                        "title": "option 2",
+                        "payload": "option 2"
+                    },{
                         "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "title": "option 3",
+                        "payload": "option 3"
                     }],
-                }]
+                }],
+                }
             }
         }
     }

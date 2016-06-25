@@ -42,9 +42,38 @@ var define = {
 			    }
 			});
 		}
-	}
+	},
 
-	// new fn
+	options : function(word, callback){
+		var words = []; 
+		var url = "http://words.bighugelabs.com/api/2/bb3bce84dabc99e28f8f748276fba24b/"+word+"/json";
+		request({
+			url:url,
+			json: true
+		}, function(error, response, body) {
+			console.log(error);
+			//console.log(response);
+			if(!error && response.statusCode === 200) {
+				for(var x in body){
+					if(words.length <= 2){
+						for(var y in body[x]){
+							if(words.length !=2)
+								words.push(body[x][y]);
+							else
+								break;
+						}
+					}
+				}
+				//callback(words);
+				console.log(words);
+			}
+
+		});
+	}
 }
 
+
+define.options("delight",function(words){
+	console.log(words);
+});
 module.exports= define;
