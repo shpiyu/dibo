@@ -164,6 +164,7 @@ function sendGenericMessage(sender,text) {
 	define.options(text, function(words){
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
+		console.log('Words: '+words);
 	});
 
     let messageData = {
