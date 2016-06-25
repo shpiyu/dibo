@@ -48,11 +48,16 @@ function sendQuestionToID(id,database,meaning){
 	//while(i<=300000){
 		console.log('before send ques: '+id);
     	setTimeout(function(){
+
+    		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
+    		new define.define(text,function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		console.log(id);
     		var arrayT = WordsPerID[id];
-            sendGenericMessage(id,arrayT[Math.floor((Math.random() * WordsPerID[id].length))], meaning);	
+            sendGenericMessage(id,, meaning);	
+    		});
+    		
     	},10000);	
 	//}
 	//i += 60000;
