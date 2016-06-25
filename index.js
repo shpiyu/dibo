@@ -48,7 +48,8 @@ function sendQuestionToID(id,database,meaning){
     	setTimeout(function(meaning){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
-            sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID[id].length)], meaning);	
+    		var arrayT = WordsPerID[id];
+            sendGenericMessage(id,arrayT[Math.floor((Math.random() * WordsPerID[id].length))], meaning);	
     	},10000,meaning);	
 	//}
 	//i += 60000;
