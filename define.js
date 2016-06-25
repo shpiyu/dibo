@@ -19,6 +19,7 @@ var define = {
 			}, function (error, response, body) {
 
 			    if (!error && response.statusCode === 200) {
+			    	console.log('response is 200');
 			    	var resp = "";
 			    		if(body.results.length != 0 ){
 			    			console.log('Before For loop'); 
@@ -27,7 +28,7 @@ var define = {
 			    				var headword = 	body.results[i].headword;
 					    		var definition = body.results[i].senses[0].definition.toString();
 					        	var partOfSpeech = body.results[i].part_of_speech.toString();
-					        	resp += (i+1) + headword + " ("+ partOfSpeech + ") "+ definition + "\n";
+					        	resp += headword + " ("+ partOfSpeech + ") : "+ definition + "\n\n";
 			    			}
 			    		console.log('after for loop. Response: '); 	
 			        	console.log(resp);

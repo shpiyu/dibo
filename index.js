@@ -64,13 +64,13 @@ app.get('/', function (req, res) {
 
             console.log(req.query);
             if(req.query['text'] === 'ask')
-                quizMode('948868911892281');
-                /*define.define('laugh',function(meaning){
-                    fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
+                //quizMode('948868911892281');
+                define.define('option 1',function(meaning){
+                    //fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
                     console.log(meaning);
-                    IDs.insertUnique('prasann');    
-                   eventEmitter.emit('InsertedIDAndWord');
-            });*/
+                    //IDs.insertUnique('prasann');    
+                   //eventEmitter.emit('InsertedIDAndWord');
+            });
 })
 
 // for Facebook verification
