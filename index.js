@@ -34,8 +34,15 @@ eventEmitter.on('InsertedIDAndWord', function(){
 function userInserted(){
     console.log('user inserted event');
     console.log(IDs);
+    sendMessageToID(IDs.pop());
 }
 
+function sendMessageToID(id){
+
+    setTimeout(function(){
+        sendTextMessage(id,"Testing Bitch");
+    },10000);
+}
 
 
 app.set('port', (process.env.PORT || 5000))
@@ -100,6 +107,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.insertWordInFireBase(ref,sender,text);
                         IDs.push(sender);
                         sendTextMessage(sender,meaning);
+                        eventEmitter.emit('InsertedIDAndWord');
                     }
                     else
                         sendTextMessage(sender, 'No meaning found');
