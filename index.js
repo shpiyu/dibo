@@ -124,7 +124,14 @@ app.post('/webhook/', function (req, res) {
         }
         if(event.postback) {
         	let text = JSON.stringify(event.postback)
-        	sendTextMessage(sender, "Postback recieved : "+text.substring(0,200), token)
+        	//sendTextMessage(sender, "Postback recieved : "+text.substring(0,200), token)
+        	if(text == 'correct'){
+        		sendTextMessage(sender,"Awesome, that's right :) ");
+        	}
+        	else{
+				sendTextMessage(sender,"Oops, try again :( ");
+        	
+        	}
         	continue
         }
     }
@@ -182,15 +189,15 @@ function sendGenericMessage(sender,text, meaning) {
                     "buttons": [{
                         "type": "postback",
                         "title": text,
-                        "payload": "option 1"
+                        "payload": "correct"
                     }, {
                         "type": "postback",
                         "title": option1,
-                        "payload": "option 2"
+                        "payload": "incorrect"
                     },{
                         "type": "postback",
                         "title": option2,
-                        "payload": "option 3"
+                        "payload": "incorrect"
                     }],
                 }],
                 }
