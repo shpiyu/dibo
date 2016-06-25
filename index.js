@@ -39,10 +39,10 @@ eventEmitter.on('InsertedIDAndWord', function(){
 function userInserted(){
     console.log('user inserted event');
     console.log(IDs);
-    sendQuestionToID(IDs.pop());
+    sendQuestionToID(IDs.pop(),database);
 }
 
-function sendQuestionToID(id){
+function sendQuestionToID(id,database){
 	i=0;
 	while(true){
     	setTimeout(function(){
