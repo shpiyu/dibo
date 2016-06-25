@@ -31,7 +31,7 @@ exports.FireBase = {
 				for(var key in ss){
 					array.push(ss[key]);
 				}
-				int randomIndex = Math.random() * array.length();
+				var randomIndex = (Math.random() * array.length());
 				if(randomIndex >= array.length())
 					randomIndex --;
 				callback(array[randomIndex]);				
