@@ -124,7 +124,7 @@ app.post('/webhook/', function (req, res) {
         }
         if(event.postback) {
         	console.log(event.postback);
-        	let text = JSON.stringify(event.postback)
+        	let text = JSON.stringify(event.postback['payload'])
         	//sendTextMessage(sender, "Postback recieved : "+text.substring(0,200), token)
         	if(text == 'correct'){
         		sendTextMessage(sender,"Awesome, that's right :) ");
