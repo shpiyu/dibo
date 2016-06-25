@@ -11,6 +11,8 @@ const token = "EAAELYU6ZCatYBAF59Dy2ZCb1KQ7gCEUcFxUw8GzBWcTVlSj80HV3hJqx4xHCj4Fg
 //questions
 
 const questions = ['Best Match for','Pick a suitable word for'];
+const success = ['Awesome, that\'s right :)','Amazing, you\'ve mastered this word :D','Nice one ;)','You\'re getting pro'];
+const failure = ['Oops, try again :(', 'No, that\'s not the correct one :<', 'guessing doen\'t work everytime :p try again' ];
 var IDs = [];
 
 Firebase.initializeApp({
@@ -127,10 +129,12 @@ app.post('/webhook/', function (req, res) {
         	let ans = event.postback['payload'];
         	//sendTextMessage(sender, "Postback recieved : "+text.substring(0,200), token)
         	if(ans == 'correct'){
-        		sendTextMessage(sender,"Awesome, that's right :) ");
+        		var corrMsg = success[Math.floor(Math.random()*success.length)];
+        		sendTextMessage(sender,corrMsg);
         	}
         	else{
-				sendTextMessage(sender,"Oops, try again :( ");
+        		var inCorrMsg = failure[Math.floor(Math.random()*failure.length)];
+				sendTextMessage(sender,inCorrMsg);
         	
         	}
         	continue
