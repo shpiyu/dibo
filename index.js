@@ -167,6 +167,7 @@ function sendGenericMessage(sender,text) {
 		console.log('Words: '+words);
 	});
 
+	console.log(option1 + " $$ "+ option2);
     let messageData = {
         "attachment": {
             "type": "template",
@@ -193,6 +194,8 @@ function sendGenericMessage(sender,text) {
                 }
             }
         }
+
+     console.log(messageData);
     
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
