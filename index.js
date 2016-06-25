@@ -46,15 +46,18 @@ function sendQuestionToID(id){
 	i=0;
 	while(true){
     	setTimeout(function(){
-    		var lword = fb.FireBase.getWords();
-    		new define.define(lword,function(meaning){
-    		new sendGenericMessage(sender,lword, meaning);	
+    		var lword = fb.FireBase.getWords(database,id,function(){
+    			new define.define(lword,function(meaning){
+	    			new sendGenericMessage(sender,lword, meaning);	
+	    		});
     		});
-    	},60000+ i);
+    	},60000+ i);	
 	}
 	i += 60000;
 }
 
+
+    	
 
 app.set('port', (process.env.PORT || 5000))
 
