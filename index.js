@@ -39,29 +39,50 @@ eventEmitter.on('InsertedIDAndWord', function(meaning){
 function userInserted(meaning){
     console.log('user inserted event');
     console.log('before pop: '+IDs);
-    sendQuestionToID(IDs[IDs.length-1],database,meaning);
+    sendQuestionToID(IDs[IDs.length-1],database,meaning,false);
     console.log('after pop:' +IDs);
 }
 
-function sendQuestionToID(id,database,meaning){
+function sendQuestionToID(id,database,meaning,bool){
 	//var i=0;
 	//while(i<=300000){
-		console.log('before send ques: '+id);
-    	setTimeout(function(){
-    		var arrayT = WordsPerID[id];
-    		if(arrayT == undefined || arrayT.length == 0){
-    			sendTextMessage(id,"Nothing to search :-|");
-    		}
-    		else {
-    		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
-    		define.define(text,function(meaning){
-    		console.log('------------------------------------')
-    		console.log(WordsPerID);
-    		console.log(id);
-            sendGenericMessage(id,text, meaning);	
-    		});
-    	}
-    },60000);
+		if(!bool){
+			console.log('before send ques: '+id);
+	    	setTimeout(function(){
+	    		var arrayT = WordsPerID[id];
+	    		if(arrayT == undefined || arrayT.length == 0){
+	    			sendTextMessage(id,"Nothing to search :-|");
+	    		}
+	    		else {
+	    		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
+	    		define.define(text,function(meaning){
+	    		console.log('------------------------------------')
+	    		console.log(WordsPerID);
+	    		console.log(id);
+	            sendGenericMessage(id,text, meaning);	
+	    		});
+	    	}
+	    },60000);
+    }
+    else
+    {
+    	console.log('before send ques: '+id);
+	    	//setTimeout(function(){
+	    		var arrayT = WordsPerID[id];
+	    		if(arrayT == undefined || arrayT.length == 0){
+	    			sendTextMessage(id,"Nothing to search :-|");
+	    		}
+	    		else {
+	    		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
+	    		define.define(text,function(meaning){
+	    		console.log('------------------------------------')
+	    		console.log(WordsPerID);
+	    		console.log(id);
+	            sendGenericMessage(id,text, meaning);	
+	    		});
+	    	}
+	   // },60000);
+    }
  }	
 	//}
 	//i += 60000;
@@ -120,7 +141,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
         	let text = event.message.text
             if(text.toLowerCase() == "ask me".toLowerCase()){
-                sendQuestionToID(sender,database,undefined);
+                sendQuestionToID(sender,database,undefined,true);
             }
             else{
                 console.log('Making a request'); 
