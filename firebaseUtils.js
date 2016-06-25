@@ -8,29 +8,8 @@ exports.FireBase = {
 		insertWordInFireBase : function(ref,id,word){
 			var data;
 			var bool = false;	
-			ref.child('IDs').child(id).child('words').on('value',function(snap){
-				data= snap.val();
-				for(var key in data){
-					if(data[key] === word){
-						bool = true;
-						break;
-					}
-
-				}
-
-				if(!bool){
-					callbackInsert(ref,id,word);
-				}
-				
-			});
-
-
-				
-		},
-
-		callbackInsert : function(ref,id,word){
 			var wordRef = ref.child('IDs').child(id).child('words').push();
-			wordRef.set(word.toLowerCase());
+			wordRef.set(word.toLowerCase());				
 		},
 
 		insertRandom : function(ref){
