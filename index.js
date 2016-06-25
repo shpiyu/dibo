@@ -49,6 +49,10 @@ function sendQuestionToID(id,database,meaning){
 		console.log('before send ques: '+id);
    // 	setTimeout(function(){
     		var arrayT = WordsPerID[id];
+    		if(arrayT == undefined || arrayT.length == 0){
+    			sendTextMessage(id,"Nothing to search :-|");
+    		}
+    		else {
     		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
     		define.define(text,function(){
     		console.log('------------------------------------')
@@ -56,7 +60,8 @@ function sendQuestionToID(id,database,meaning){
     		console.log(id);
             sendGenericMessage(id,text, meaning);	
     		});
-    //	},10000);	
+    //	},10000);
+    	}	
 	//}
 	//i += 60000;
 }
@@ -81,7 +86,7 @@ Array.prototype.insertUnique = function (value) {
 app.get('/', function (req, res) {
 
             console.log(req.query);
-            if(req.query['text'] === 'ask')
+            if(req.query['text'] === 'ask me')
                 //quizMode('948868911892281');
                 define.define('option 1',function(meaning){
                     //fb.FireBase.insertWordInFireBase(ref,'prasann','stone');
@@ -114,7 +119,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
         	let text = event.message.text
             if(text == "ask"){
-                quizMode(sender);
+                sendQuestionToID(sender,database,undefined);
             }
             else{
                 console.log('Making a request'); 
