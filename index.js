@@ -62,7 +62,7 @@ function sendQuestionToID(id,database,meaning,bool){
 	            sendGenericMessage(id,text, meaning);	
 	    		});
 	    	}
-	    },60000);
+	    },30000);
     }
     else
     {
@@ -145,7 +145,7 @@ app.post('/webhook/', function (req, res) {
             }
             else{
                 console.log('Making a request'); 
-                new define.define(text,function(meaning){
+                 define.define(text,function(meaning){
                     if(meaning !== undefined || meaning == "")
                     {
                         console.log('Saving to firebase..');
