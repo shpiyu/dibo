@@ -15,16 +15,26 @@ exports.FireBase = {
 						bool = true;
 						break;
 					}
+
 				}
+
 				if(!bool){
-					var wordRef = ref.child('IDs').child(id).child('words').push();
-					wordRef.set(word.toLowerCase());
+					callbackInsert(ref,id,word);
 				}
+				
 			});
+
+
+				
+		},
+
+		callbackInsert : function(ref,id,word){
+			var wordRef = ref.child('IDs').child(id).child('words').push();
+			wordRef.set(word.toLowerCase());
 		},
 
 		insertRandom : function(ref){
-			
+
 			id = Math.random();
 			var randomRef = ref.push();
 			ref.set(id);
