@@ -54,7 +54,7 @@ function sendQuestionToID(id,database,meaning){
     		}
     		else {
     		var text = arrayT[Math.floor((Math.random() * WordsPerID[id].length))];
-    		define.define(text,function(){
+    		define.define(text,function(meaning){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		console.log(id);
