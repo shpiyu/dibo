@@ -177,7 +177,7 @@ function sendGenericMessage(sender,text, meaning) {
                 "template_type": "generic",
                 "elements": [{
                     "title": questions[Math.floor(Math.random()*questions.length)],
-                    "subtitle": question.substring(0,80),
+                    "subtitle": question.substring(0,question.indexOf('\n')),
                     "image_url": "",
                     "buttons": [{
                         "type": "postback",
