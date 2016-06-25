@@ -154,7 +154,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.getWords(ref,sender,text,function(array){
                             WordsPerID[sender] = array;
                             console.log(WordsPerID);
-                            //eventEmitter.emit('InsertedIDAndWord',meaning);
+                            eventEmitter.emit('InsertedIDAndWord',meaning);
                         });
                         IDs.insertUnique(sender);
                         console.log(IDs);
