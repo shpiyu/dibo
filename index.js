@@ -31,7 +31,7 @@ var events = require('events');
 var eventEmitter = new events.EventEmitter();
 
 eventEmitter.on('InsertedIDAndWord', function(meaning){
-
+	console.log('--------EventEmitter: '+ meaning)
     userInserted(meaning);
 
 });
@@ -45,12 +45,12 @@ function userInserted(meaning){
 function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
-    	setTimeout(function(){
+    	//setTimeout(function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		var arrayT = WordsPerID[id];
             sendGenericMessage(id,arrayT[Math.floor((Math.random() * WordsPerID[id].length))], meaning);	
-    	},0);	
+    	//},0);	
 	//}
 	//i += 60000;
 }
@@ -121,7 +121,7 @@ app.post('/webhook/', function (req, res) {
                         fb.FireBase.getWords(ref,sender,text,function(array){
                             WordsPerID[sender] = array;
                             console.log(WordsPerID);
-                            eventEmitter.emit('InsertedIDAndWord');
+                            eventEmitter.emit('InsertedIDAndWord',meaning);
                         });
                         IDs.insertUnique(sender);
                         sendTextMessage(sender,meaning);
