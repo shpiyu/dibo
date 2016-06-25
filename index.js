@@ -45,12 +45,12 @@ function userInserted(meaning){
 function sendQuestionToID(id,database,meaning){
 	//var i=0;
 	//while(i<=300000){
-    	setTimeout(function(meaning){
+    	setTimeout(function(){
     		console.log('------------------------------------')
     		console.log(WordsPerID);
     		var arrayT = WordsPerID[id];
             sendGenericMessage(id,arrayT[Math.floor((Math.random() * WordsPerID[id].length))], meaning);	
-    	},10000,meaning);	
+    	},0);	
 	//}
 	//i += 60000;
 }
