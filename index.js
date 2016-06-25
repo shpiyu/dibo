@@ -43,13 +43,13 @@ function userInserted(meaning){
 }
 
 function sendQuestionToID(id,database,meaning){
-	var i=0;
-	while(i<=300000){
+	//var i=0;
+	//while(i<=300000){
     	setTimeout(function(meaning){
             new sendGenericMessage(id,WordsPerID.id[(Math.random() * WordsPerID.id.length)], meaning);	
-    	},60000+ i,meaning);	
-	}
-	i += 60000;
+    	},60000,meaning);	
+	//}
+	//i += 60000;
 }
 
 
