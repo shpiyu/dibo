@@ -161,7 +161,7 @@ function sendTextMessage(sender, text) {
 
 function sendGenericMessage(sender,text) {
 	var option1,option2;
-	define.options(text, function(){
+	define.options(text, function(words){
 		option1 = words[0] || "option 1";
 		option2 = words[1] || "option 2";
 	});
